@@ -64,9 +64,6 @@ public:
     }
 
     void playGame() {
-    cout << "Welcome to the Number Guessing Game!" << endl;
-    cout << "I'm thinking of a number between 1 and " << randomNumber << ". Can you guess it?" << endl;
-
     bool guessedCorrectly = false;
 
     while (!guessedCorrectly && numAttempts < maxAttempts) {
@@ -93,12 +90,39 @@ public:
 };
 
 
-int main() {
-    // Create game object
-    NumberGuessingGame game(100, 7);  // Range: 1-100, Max attempts: 7
-
-    // Play the game
-    game.playGame();
+int main()
+{
+    cout << "Welcome to the Number Guessing Game!" << endl
+         << "The rules are simple enough:" << endl
+         << "I Think of a number and you guess it in as few attempts as possible." << endl
+         << "Good luck!" << endl
+         << "choose a difficulty level: \n E for Easy, M for medium, H for hard." << endl;
+    char level;
+    cout << "Enter your choice: ";
+    cin >> level;
+    switch (level)
+    {
+    case 'E':
+    case 'e':
+        cout << "I'm thinking of a number between 1 and 50. Can you guess it?" << endl;
+        NumberGuessingGame game(50, 7); // Range: 1-50, Max attempts: 7
+        game.playGame();
+        break;
+    case 'M':
+    case 'm':
+        cout << "I'm thinking of a number between 1 and 100. Can you guess it?" << endl;
+        NumberGuessingGame game(100, 6); // Range: 1-100, Max attempts: 6
+        game.playGame();
+        break;
+    case 'H':
+    case 'h':
+        cout << "I'm thinking of a number between 1 and 200. Can you guess it?" << endl;
+        NumberGuessingGame game(200, 5); // Range: 1-200, Max attempts: 5
+        game.playGame();
+        break;
+    default:
+        break;
+    }
 
     return 0;
 }
