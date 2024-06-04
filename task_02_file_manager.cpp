@@ -12,41 +12,84 @@ using namespace std;
 #include <cstdio>
 #include <string>
 
-void listDirectory(const std::string& path) {
+void listDirectory(const std::string &path)
+{
     std::string command = "cmd /c dir \"" + path + "\" /b";
     system(command.c_str());
 }
 
-void createDirectory(const std::string& path) {
+void createDirectory(const std::string &path)
+{
     std::string command = "cmd /c mkdir \"" + path + "\"";
     int result = system(command.c_str());
-    if (result == 0) {
+    if (result == 0)
+    {
         std::cout << "Directory created: " << path << std::endl;
-    } else {
+    }
+    else
+    {
         std::cerr << "Error creating directory: " << path << std::endl;
     }
 }
 
-void copyFile(const string& source, const string& destination) {
+void copyFile(const string &source, const string &destination)
+{
     ifstream src(source, ios::binary);
-    if (src) {
+    if (src)
+    {
         ofstream dest(destination, ios::binary);
-        if (dest) {
+        if (dest)
+        {
             dest << src.rdbuf();
             cout << "File copied: " << source << " -> " << destination << "\n";
-        } else {
+        }
+        else
+        {
             cerr << "Error creating destination file: " << destination << "\n";
         }
-    } else {
+    }
+    else
+    {
         cerr << "Error opening source file: " << source << "\n";
     }
 }
 
-void moveFile(const string& source, const string& destination) {
-    if (rename(source.c_str(), destination.c_str()) == 0) {
+void moveFile(const string &source, const string &destination)
+{
+    if (rename(source.c_str(), destination.c_str()) == 0)
+    {
         cout << "File moved: " << source << " -> " << destination << "\n";
-    } else {
+    }
+    else
+    {
         cerr << "Error moving file: " << source << " -> " << destination << "\n";
+    }
+}
+
+void createFile(const std::string &path)
+{
+    std::ofstream file(path, std::ios::out);
+    if (file)
+    {
+        std::cout << "File created: " << path << std::endl;
+    }
+    else
+    {
+        std::cerr << "Error creating file: " << path << std::endl;
+    }
+}
+
+bool deleteFile(const string &filePath)
+{
+    if (remove(filePath.c_str()) == 0)
+    {
+        cout << "File deleted: " << filePath << endl;
+        return true;
+    }
+    else
+    {
+        cerr << "Error deleting file: " << filePath << endl;
+        return false;
     }
 }
 
@@ -65,7 +108,7 @@ int main()
     cout << "menu: Access the menu-based interface" << endl;
     cout << endl;
 
-    string currentPath = "."; // Current directory
+    string currentPath = ".";
 
     while (true)
     {
@@ -156,6 +199,46 @@ int main()
                 cerr << "Usage: mv <source_file> <destination_file>\n";
             }
         }
+        else if (args[0] == "create")
+        {
+            if (args.size() == 2)
+            {
+                string filePath = args[1];
+                ofstream file(filePath, std::ios::out);
+                if (file)
+                {
+                    cout << "File created: " << filePath << std::endl;
+                }
+                else
+                {
+                    cerr << "Error creating file: " << filePath << std::endl;
+                }
+            }
+            else
+            {
+                cerr << "Usage: create <file_path>" << std::endl;
+            }
+        }
+        else if (args[0] == "delete")
+        {
+            if (args.size() == 2)
+            {
+                string filePath = args[1];
+                if (remove(filePath.c_str()) == 0)
+                {
+                    cout << "File deleted: " << filePath << std::endl;
+                }
+                else
+                {
+                    cerr << "Error deleting file: " << filePath << std::endl;
+                }
+            }
+            else
+            {
+                cerr << "Usage: delete <file_path>" << std::endl;
+            }
+        }
+
         else if (args[0] == "exit")
         {
             break;
@@ -165,11 +248,12 @@ int main()
             cout << "\nWhat would you like to do?" << endl;
             cout << "1. List files/directories" << endl;
             cout << "2. Create a new directory" << endl;
-            cout << "3. Exit" << endl;
+            cout << "3. Create a new file" << endl;
+            cout << "4. Exit" << endl;
             cout << "Enter your choice: ";
             int choice;
             cin >> choice;
-            cin.ignore(); // Ignore the newline character
+            cin.ignore();
 
             switch (choice)
             {
@@ -184,6 +268,16 @@ int main()
                 createDirectory(currentPath);
                 break;
             case 3:
+                cout << "Enter the path to create a new file: ";
+                getline(cin, currentPath);
+                createFile(currentPath);
+                break;
+            case 4:
+                cout << "Enter the path to delete a file: ";
+                getline(cin, currentPath);
+                deleteFile(currentPath);
+                break;
+            case 5:
                 cout << "Goodbye!" << endl;
                 return 0;
             default:
@@ -191,6 +285,7 @@ int main()
                 break;
             }
         }
+
         else
         {
             cerr << "Invalid command: " << args[0] << "\n";
