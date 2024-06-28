@@ -102,8 +102,8 @@ int main()
     cout << "mkdir <directory_name>: Create a new directory" << endl;
     cout << "cd <directory_name>: Change the current directory" << endl;
     cout << "cd..: Change the current directory to the parent directory" << endl;
-    cout << "cp <source_file> <destination_file>: Copy a file (not implemented)" << endl;
-    cout << "mv <source_file> <destination_file>: Move a file (not implemented)" << endl;
+    cout << "cp <source_file> <destination_file>: Copy a file " << endl;
+    cout << "mv <source_file> <destination_file>: Move a file " << endl;
     cout << "exit: Exit the program" << endl;
     cout << "menu: Access the menu-based interface" << endl;
     cout << endl;

@@ -166,7 +166,7 @@ int main()
 
         cout << "Do you wana end the game?";
         cin >> eogame;
-    } while (eogame == 'y' || eogame == 'Y');
+    } while ((eogame == 'n' || eogame == 'N') && (eogame != 'y' || eogame != 'Y'));
 
     return 0;
 }
