@@ -104,62 +104,69 @@ int main()
          << "If you guess don't, I'll give you a hint." << endl
          << "You have limited attempts to guess the number." << endl
          << "If you run out of attempts, you lose." << endl
-         << "Good luck!" << endl
-         << "choose a difficulty level: \n E for Easy, M for medium, H for hard." << endl;
+         << "Good luck!" << endl;
     char level;
-    cout << "Enter your choice: ";
-    cin >> level;
-    char end;
-    int flag = 0;
+    char eogame;
     do
     {
-        switch (level)
+        cout << "choose a difficulty level: \n E for Easy, M for medium, H for hard." << endl;
+        cout << "Enter your choice: ";
+        cin >> level;
+        char end;
+        int flag = 0;
+        do
         {
-        case 'E':
-        case 'e':
-        {
-            cout << "I'm thinking of a number between 1 and 50. Can you guess it?" << endl;
-            do
+            switch (level)
             {
-                NumberGuessingGame game(50, 7);
-                game.playGame();
-                cout << "Do you want to play again? (y/n)" << endl;
-                cin >> end;
-            } while (end == 'y' || end == 'Y');
-        }
-        break;
-        case 'M':
-        case 'm':
-        {
-            cout << "I'm thinking of a number between 1 and 100. Can you guess it?" << endl;
-            do
+            case 'E':
+            case 'e':
             {
-                NumberGuessingGame game(100, 6);
-                game.playGame();
-                cout << "Do you want to play again? (y/n)" << endl;
-                cin >> end;
-            } while (end == 'y' || end == 'Y');
-        }
-        break;
-        case 'H':
-        case 'h':
-        {
-            cout << "I'm thinking of a number between 1 and 200. Can you guess it?" << endl;
-            do
-            {
-                NumberGuessingGame game(200, 5);
-                game.playGame();
-                cout << "Do you want to play again? (y/n)" << endl;
-                cin >> end;
-            } while (end == 'y' || end == 'Y');
-        }
-        break;
-        default:
-            cout << "Invalid choice. \nAgain! " << endl;
-            flag = 1;
+                cout << "I'm thinking of a number between 1 and 50. Can you guess it?" << endl;
+                do
+                {
+                    NumberGuessingGame game(50, 7);
+                    game.playGame();
+                    cout << "Do you want to play again in same level? (y/n)" << endl;
+                    cin >> end;
+                } while (end == 'y' || end == 'Y');
+            }
             break;
-        }
-    } while (flag == 1);
+            case 'M':
+            case 'm':
+            {
+                cout << "I'm thinking of a number between 1 and 100. Can you guess it?" << endl;
+                do
+                {
+                    NumberGuessingGame game(100, 6);
+                    game.playGame();
+                    cout << "Do you want to play again in same level? (y/n)" << endl;
+                    cin >> end;
+                } while (end == 'y' || end == 'Y');
+            }
+            break;
+            case 'H':
+            case 'h':
+            {
+                cout << "I'm thinking of a number between 1 and 200. Can you guess it?" << endl;
+                do
+                {
+                    NumberGuessingGame game(200, 5);
+                    game.playGame();
+                    cout << "Do you want to play again in same level? (y/n)" << endl;
+                    cin >> end;
+                } while (end == 'y' || end == 'Y');
+            }
+            break;
+            default:
+                cout << "Invalid choice. \nAgain! " << endl;
+                flag = 1;
+                break;
+            }
+        } while (flag == 1);
+
+        cout << "Do you wana end the game?";
+        cin >> eogame;
+    } while (eogame == 'y' || eogame == 'Y');
 
     return 0;
 }
